@@ -22,9 +22,8 @@ class WeatherServices {
       Map<String, dynamic> data = jsonDecode(response.body);
 
       weather = WeatherModel.fromJson(data);
-    // ignore: empty_catches
-    } catch (e) {
-    }
+      // ignore: empty_catches
+    } catch (e) {}
 
     return weather;
   }
