@@ -8,12 +8,9 @@ class WelcomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Container(
-        decoration: BoxDecoration(
+        decoration: const BoxDecoration(
           gradient: LinearGradient(
-            colors: [
-              Colors.blueGrey[900]!,
-              Colors.grey[700]!,
-            ],
+            colors: [Colors.indigoAccent, Colors.cyan],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
           ),
@@ -23,45 +20,60 @@ class WelcomeScreen extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Text(
-              'Welcome to the Weather App',
+              'Welcome to Weatherify',
               style: TextStyle(
-                fontSize: 32.0,
+                fontSize: 34.0,
                 color: Colors.white,
                 fontWeight: FontWeight.bold,
+                letterSpacing: 1.5,
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 24.0),
-            Image.asset(
-              'assets/images/logo.png',
-              height: 120.0,
-              width: 120.0,
-            ),
+            // const SizedBox(height: 24.0),
+            // Container(
+            //   padding: const EdgeInsets.all(12.0),
+            // decoration: BoxDecoration(
+            //   shape: BoxShape.circle,
+            //   color: Colors.white.withOpacity(0.8),
+            // ),
+            //   child: Image.asset(
+            //     'assets/images/logo.png',
+            //     height: 120.0,
+            //     width: 120.0,
+            //   ),
+            // ),
             const SizedBox(height: 48.0),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => WeatherSearchScreen(),
-                    ));
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => WeatherSearchScreen(),
+                  ),
+                );
               },
               style: ElevatedButton.styleFrom(
-                foregroundColor: Colors.blueGrey[900],
-                backgroundColor: Colors.white,
+                foregroundColor: Colors.white,
+                backgroundColor: Colors.blueAccent[700],
                 padding: const EdgeInsets.symmetric(
                   vertical: 16.0,
-                  horizontal: 60.0,
+                  horizontal: 80.0,
                 ),
                 shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50.0),
+                  borderRadius: BorderRadius.circular(30.0),
                 ),
+                shadowColor: Colors.black54,
+                elevation: 10,
               ),
               child: const Text(
                 'Get Started',
-                style: TextStyle(fontSize: 18.0),
+                style: TextStyle(
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.2,
+                ),
               ),
-            )
+            ),
           ],
         ),
       ),

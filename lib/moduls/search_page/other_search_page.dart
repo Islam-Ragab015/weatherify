@@ -1,5 +1,3 @@
-// ignore_for_file: must_be_immutable, use_build_context_synchronously
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weatherify/models/weather_model.dart';
@@ -19,68 +17,70 @@ class WeatherSearchScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Search Location'),
+        title: const Text(
+          'Search Location',
+          style: TextStyle(
+            fontWeight: FontWeight.bold,
+            fontSize: 22,
+          ),
+        ),
+        backgroundColor: Colors.blueAccent[700],
+        elevation: 0,
       ),
-      body: Padding(
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.blueAccent[100]!, Colors.blueAccent[400]!],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
         padding: const EdgeInsets.all(16.0),
         child: Column(
           children: [
             // Search input field
             TextField(
-              onChanged: (value) {
-                cityName = value;
-              },
+              onChanged: (value) => cityName = value,
               onSubmitted: (value) async {
                 cityName = value;
-                WeatherServices weatherServices = WeatherServices();
-                WeatherModel? weather =
-                    await weatherServices.getweather(theCityName: cityName!);
-                Provider.of<WeatherProvider>(context, listen: false)
-                    .weatherData = weather;
-
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const HomePage(title: "Weatherify"),
-                    ));
+                await _searchWeather(context);
               },
               decoration: InputDecoration(
+                filled: true,
+                fillColor: Colors.white.withOpacity(0.8),
                 hintText: 'Enter a location',
+                hintStyle: TextStyle(color: Colors.blueGrey[300]),
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(30),
+                  borderSide: BorderSide.none,
+                ),
                 suffixIcon: IconButton(
-                  icon: const Icon(Icons.search),
+                  icon: const Icon(Icons.search, color: Colors.blueAccent),
                   onPressed: () async {
-                    WeatherServices weatherServices = WeatherServices();
-                    WeatherModel? weather = await weatherServices.getweather(
-                        theCityName: cityName!);
-                    Provider.of<WeatherProvider>(context, listen: false)
-                        .weatherData = weather;
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) =>
-                              const HomePage(title: "Weatherify"),
-                        ));
+                    await _searchWeather(context);
                   },
                 ),
+                contentPadding:
+                    const EdgeInsets.symmetric(vertical: 15, horizontal: 20),
               ),
-            ),
-            const SizedBox(height: 16),
-
-            const SizedBox(height: 8),
-            // List of recent searches
-            Expanded(
-              child: ListView.builder(
-                itemCount: 5,
-                itemBuilder: (context, index) {
-                  return const ListTile(
-                      // title: Text('Recent Search ${index + 1}'),
-                      // trailing: const Icon(Icons.arrow_forward),
-                      );
-                },
-              ),
+              style: const TextStyle(color: Colors.black87),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Future<void> _searchWeather(BuildContext context) async {
+    WeatherServices weatherServices = WeatherServices();
+    WeatherModel? weather = await weatherServices.getweather(
+      theCityName: cityName!,
+    );
+    Provider.of<WeatherProvider>(context, listen: false).weatherData = weather;
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const HomePage(title: "Weatherify"),
       ),
     );
   }
