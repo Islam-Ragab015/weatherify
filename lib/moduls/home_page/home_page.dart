@@ -62,8 +62,8 @@ class _HomePageState extends State<HomePage> {
                 gradient: LinearGradient(
                   colors: [
                     weatherData!.getThemeColor(),
-                    weatherData!.getThemeColor()[300]! as Color,
-                    weatherData!.getThemeColor()[200]! as Color,
+                    weatherData!.getThemeColor()[300]!,
+                    weatherData!.getThemeColor()[200]!,
                   ],
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter,
